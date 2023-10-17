@@ -1,0 +1,43 @@
+*** Intelligent Systems 2.1 (report) ***
+
+K-NN algorithm
+Python
+
+- Take input from sensor (dataset)
+- Pre-process data
+- Read about features responisble for identification
+- Find a method to extract those features
+- Train features for specific user through K-NN
+
+
+REPORT:
+Approach/Implementation Section (individual):
+- Describe implemented approach, explain algorithm
+- Address all steps with maths and illustrations
+- Include flowchart and describe full implementation process
+    - data collection
+    - training
+    - validation
+    - testing
+- Include all used parameters
+- Describe language/software/tools used
+
+Performance Evaluation Section (individual):
+- Describe dataset, report performance of algorithm
+- Demonstrate findings with tables/figures
+
+Performance Comparison Section (joint)
+- Compare algorithm performance on common dataset
+- Demonstrate findings with tables/figures
+
+
+*** Intelligent Systems 2.2 (video) ***
+
+- Powerpoint slides, screen capture, webcam window
+- Outline contribution
+- Explain theory of algorithm,
+    - Discuss how it was implemented
+    - Demonstrate testing
+    - Explain results
+    
+https://towardsdatascience.com/create-your-own-k-nearest-neighbors-algorithm-in-python-eb7093fc6339
