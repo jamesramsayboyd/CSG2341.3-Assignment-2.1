@@ -41,3 +41,6 @@ Performance Comparison Section (joint)
     - Explain results
     
 https://towardsdatascience.com/create-your-own-k-nearest-neighbors-algorithm-in-python-eb7093fc6339
+https://www.ibm.com/topics/knn
+https://www.educative.io/answers/what-is-manhattan-distance-in-machine-learning
+https://www.ijera.com/papers/Vol3_issue5/DI35605610.pdf
