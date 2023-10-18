@@ -1,0 +1,10 @@
+https://towardsdatascience.com/create-your-own-k-nearest-neighbors-algorithm-in-python-eb7093fc6339
+https://archive.ics.uci.edu/dataset/53/iris (iris dataset)
+https://www.analyticsvidhya.com/blog/2020/02/4-types-of-distance-metrics-in-machine-learning/#h-minkowski-distance (hamming distance source)
+https://www.educative.io/answers/what-is-manhattan-distance-in-machine-learning (manhattan distance source)
+https://iopscience.iop.org/article/10.1088/1742-6596/1025/1/012114/pdf (study)
+https://www.ijera.com/papers/Vol3_issue5/DI35605610.pdf (study)
+https://www.researchgate.net/publication/332880911_Improved_Handwritten_Digit_Recognition_using_Quantum_K-Nearest_Neighbor_Algorithm (study)
+
+https://www.ibm.com/topics/knn
+https://www.ibm.com/docs/en/ias?topic=knn-usage (ibm links)
