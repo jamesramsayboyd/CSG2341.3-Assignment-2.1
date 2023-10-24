@@ -1,137 +1,71 @@
-import numpy as np
-import matplotlib.pyplot as plt
-from sklearn import datasets
+from matplotlib import pyplot as plt
+from sklearn.datasets import load_digits
+from sklearn.metrics import classification_report
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
+import numpy as np
 
-# Helper functions
-def most_common(lst):
-    '''Returns the most common element in a list'''
-    return max(set(lst), key = lst.count)
+# Finds the most common class in a list of nearest neighbour data points
+def most_common(neighbour_list):
+    return max(set(neighbour_list), key=neighbour_list.count)
 
-def euclidean(point, data):
-    '''Euclidean distance between a point & data'''
-    return np.sqrt(np.sum((point - data)**2, axis=1))
+# Finds the Euclidean distance between two data points
+def euclidean(target_datapoint, neighbour_datapoint):
+    return np.sqrt(np.sum((target_datapoint - neighbour_datapoint)**2, axis=1))
 
-
-#Constructing class
-class KNeighborsClassifier():
-    def __init__(self, k=5, dist_metric = euclidean):
+# Class used to represent individual data points
+class kNearestNeighbour:
+    def __init__(self, k=5):
         self.k = k
-        self.dist_metric = dist_metric
+        self.X_train = y_train
+        self.y_train = X_train
 
     def fit(self, X_train, y_train):
         self.X_train = X_train
         self.y_train = y_train
 
     def predict(self, X_test):
-        neighbors = []
-        for x in X_test:
-            distances = self.dist_metric(x, self.X_train)
-            y_sorted = [y for _, y in sorted(zip(distances, self.y_train))]
-            neighbors.append(y_sorted[:self.k])
+        nearest_neighbours = []
+        for i in X_test:
+            euclidean_distances = euclidean(i, self.X_train)
+            y_sorted = [y for _, y in sorted(zip(euclidean_distances, self.y_train))]
+            nearest_neighbours.append(y_sorted[:self.k])
+        return list(map(most_common, nearest_neighbours))
 
-        return list(map(most_common, neighbors))
-
-    def evaluate(self, X_test, y_test):
+    def compare_k(self, X_test, y_test):
         y_pred = self.predict(X_test)
         accuracy = sum(y_pred == y_test) / len(y_test)
         return accuracy
 
-class KNeighborsRegressor:
-    def __init__(self, k=5, dist_metric=euclidean):
-        self.k = k
-        self.dist_metric = dist_metric
 
-    def fit(self, X_train, y_train):
-        self.X_train = X_train
-        self.y_train = y_train
+# Load data
+digits = load_digits()
+X = digits.images
+y = digits.target
 
-    def predict(self, X_test):
-        neighbors = []
-        for x in X_test:
-            distances = self.dist_metric(x, self.X_train)
-            y_sorted = [y for _, y in sorted(zip(distances, self.y_train))]
-            neighbors.append(y_sorted[:self.k])
+# X is a 3D array, i.e. 1797 images of 8x8 pixels
+# Convert to 2D array, i.e. 1797 x 64 element arrays
+X = digits.images.reshape((len(digits.images), -1))
 
-        return np.mean(neighbors, axis=1)
-
-    def evaluate(self, X_test, y_test):
-        y_pred = self.predict(X_test)
-        ssre = sum((y_pred - y_test)**2)
-        return ssre
-
-# from ucimlrepo import fetch_ucirepo
-#
-# # fetch dataset
-# iris = fetch_ucirepo(id=53)
-#
-# # data (as pandas dataframes)
-# X = iris.data.features
-# y = iris.data.targets
-#
-# # metadata
-# print(iris.metadata)
-#
-# # variable information
-# print(iris.variables)
-
-# Iris Dataset for Classifier Implementation
-#unpack iris dataset
-iris = datasets.load_iris()
-X = iris['data']
-y = iris['target']
-
-# split data into train and test sets
+# Split the data into training set (80%) and test set (20%)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 
-#pre-process data
-ss = StandardScaler().fit(X_train)
-X_train, X_test = ss.transform(X_train), ss.transform(X_test)
 
-#Test knn model across varying ks
+knn = kNearestNeighbour(k=3)
+knn.fit(X_train, y_train)
+y_pred = knn.predict(X_test)
+print(classification_report(y_test, y_pred, labels=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]))
+
 accuracies = []
-ks = range(1, 30)
+ks = range(1, 100)
 for k in ks:
-    knn = KNeighborsClassifier(k = k)
+    knn = kNearestNeighbour(k=k)
     knn.fit(X_train, y_train)
-    accuracy = knn.evaluate(X_test, y_test)
+    accuracy = knn.compare_k(X_test, y_test)
     accuracies.append(accuracy)
 
-# Visualise accuracy vs. k
 fig, ax = plt.subplots()
 ax.plot(ks, accuracies)
 ax.set(xlabel="k",
        ylabel="Accuracy",
-       title="Performance of KNN Classifier")
-#plt.show()
-
-#Housing Dataset for Regressor Implementation
-# Unpack the California housing dataset, from StatLib repository
-housing = datasets.fetch_california_housing()
-X = housing['data'][:500]
-y = housing['target'][:500]
-
-# Split data into train & test sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
-
-# Preprocess data
-ss = StandardScaler().fit(X_train)
-X_train, X_test = ss.transform(X_train), ss.transform(X_test)
-
-# Test knn model across varying ks
-accuracies = []
-ks = range(1, 30)
-for k in ks:
-    knn = KNeighborsRegressor(k=k)
-    knn.fit(X_train, y_train)
-    accuracy = knn.evaluate(X_test, y_test)
-    accuracies.append(accuracy)
-
-# Visualize accuracy vs. k
-fig, ax = plt.subplots()
-ax.plot(ks, accuracies)
-ax.set(xlabel="k",
-       ylabel="SSRE",
-       title="Performance of KNN Regressor")
+       title="Performance of knn")
 plt.show()
