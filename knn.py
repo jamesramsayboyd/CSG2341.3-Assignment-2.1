@@ -46,6 +46,16 @@ digits = load_digits()
 X = digits.images
 y = digits.target
 
+# Plot the first few images
+fig, axes = plt.subplots(2, 5, figsize=(10, 5))
+axes = axes.ravel()
+for i in np.arange(0, 10):
+    axes[i].imshow(X[i], cmap='gray')
+    axes[i].set_title("Digit: %s" % y[i])
+    axes[i].axis('off')
+plt.subplots_adjust(wspace=0.5)
+plt.show()
+
 ### PRE-PROCESSING ###
 # X is a 3D array, i.e. 1797 images of 8x8 pixels
 # Convert to 2D array, i.e. 1797 x 64 element arrays
