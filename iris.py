@@ -1,7 +1,8 @@
 from matplotlib import pyplot as plt
 from sklearn.datasets import load_digits, load_iris
-from sklearn.metrics import classification_report, confusion_matrix, ConfusionMatrixDisplay
+from sklearn.metrics import classification_report, confusion_matrix, ConfusionMatrixDisplay, accuracy_score
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
 import numpy as np
 import seaborn as sb
 
@@ -47,16 +48,17 @@ X = iris.data
 y = iris.target
 
 ### PRE-PROCESSING ###
-# X is a 3D array, i.e. 1797 images of 8x8 pixels
-# Convert to 2D array, i.e. 1797 x 64 element arrays
-# X = iris.images.reshape((len(iris.images), -1))
+# Iris dataset data points are text, so the sklearn LabelEncoder function is used to convert these to
+# numerical data that the k-NN algorithm can handle with a Euclidean Distance metric
+le = LabelEncoder()
+y = le.fit_transform(y)
 
 # Split the data into training set (80%) and test set (20%)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 
 ### OPTIMISING PARAMETERS ###
 accuracy_results = []
-ks = range(1, 20)
+ks = range(1, 50)
 for k in ks:
     knn = kNearestNeighbour(k=k)
     knn.fit(X_train, y_train)
@@ -71,15 +73,12 @@ ax.set(xlabel="k",
 plt.show()
 
 ### RUNNING ALGORITHM WITH OPTIMISED PARAMETERS ###
-knn = kNearestNeighbour(k=20)
+# k value of around 10 appears optimal
+knn = kNearestNeighbour(k=10)
 knn.fit(X_train, y_train)
 y_pred = knn.predict(X_test)
 
 ### DISPLAYING RESULTS ###
-# Classification report
-# print(classification_report(y_test, y_pred, labels=[1, 2, 3]))
-print(classification_report(y_test, y_pred, labels=iris.feature_names))
-
 # Confusion Matrix
 c_matrix = confusion_matrix(y_test, y_pred)
 plt.figure(figsize=(9,6))
@@ -89,4 +88,6 @@ plt.xlabel("Predicted")
 plt.ylabel("Truth")
 plt.show()
 
-
+### USING SKLEARN'S ACCURACY SCORE TOOL TO DISPLAY ALGORITHM PREDICTION ACCURACY ###
+accuracy = accuracy_score(y_test, y_pred)*100
+print('Accuracy of our model is equal ' + str(round(accuracy, 2)) + ' %.')

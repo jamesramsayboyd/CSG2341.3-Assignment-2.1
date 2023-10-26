@@ -1,3 +1,5 @@
+### James Boyd - 10629572 - k-NN Algorithm Implementation Code ###
+
 from matplotlib import pyplot as plt
 from sklearn.datasets import load_digits
 from sklearn.metrics import classification_report, confusion_matrix, ConfusionMatrixDisplay

@@ -1,0 +1,28 @@
+Machine Learning is a powerful technology where machines are trained to develop their own algorithms to solve problems too large or complex for human-written code. Machine learning is used to solve some of the most pressing problems facing our society today, identifying ways to halt climate change (***source #1***), improving the accuracy of medical diagnoses (*** source #2 ***), and predicting pitfalls in financial markets before they happen (*** source #3 ***). 
+
+This paper will cover three different approaches to machine learning. Random Forest learning is a technique where points of data are sent down branching paths, . It has recently been used to predict the spread of the COVID-19 and estimate the future number of daily cases reported (*** source #4 ***). 
+
+The XXXX algorithm
+
+The k-Nearest Neighbour algorithm blah blah (*** source #6***).
+
+The Approaches section will go into greater depth on each of the three Machine Learning techniques, with a detailed description of the algorithmic steps involved and an analysis of their performance against a dataset. In the Performance Comparison section, the three Machine Learning implementations will be pitted against eachother using a common dataset in order to compare their relative performance and determine their strengths and weaknesses. Code for all three implementations can be found in the Appendix.
+
+
+Tackling Climate Change with Machine Learning
+https://dl.acm.org/doi/full/10.1145/3485128
+
+Machine learning for medical diagnosis: history, state of the art and perspective
+https://www.sciencedirect.com/science/article/abs/pii/S093336570100077X
+
+Machine learning for financial forecasting, planning and analysis: recent developments and pitfalls
+https://link.springer.com/article/10.1007/s42521-021-00046-2
+
+Spatio-temporal estimation of the daily cases of COVID-19 in worldwide using random forest machine learning algorithm
+https://www.sciencedirect.com/science/article/pii/S0960077920306068
+
+xxx
+xxx
+
+Research and Implementation of Machine Learning Classifier Based on KNN
+https://iopscience.iop.org/article/10.1088/1757-899X/677/5/052038/meta
